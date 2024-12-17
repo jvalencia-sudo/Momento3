@@ -1,0 +1,106 @@
+<vex-secondary-toolbar current="Porcinos">
+  <vex-breadcrumbs [crumbs]="['Dashboards', 'Mascotas']" class="flex-auto"></vex-breadcrumbs>
+
+  <button class="ml-2" color="primary" mat-icon-button type="button">
+    <mat-icon svgIcon="mat:add"></mat-icon>
+  </button>
+</vex-secondary-toolbar>
+
+<!-- Contenedor principal con márgenes y espacio entre los elementos -->
+<div class="container p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-semibold text-gray-700">Información de Porcinos</h2>
+    <button mat-flat-button color="primary" (click)="openAddMascotaModal()">
+      <mat-icon>add</mat-icon>
+      Agregar Porcino
+    </button>
+  </div>
+
+  <!-- Tabla estilizada con opciones de búsqueda y paginación -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Búsqueda de Porcinos</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="flex justify-between items-center mb-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Buscar por nombre</mat-label>
+          <input matInput placeholder="Buscar..." [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Filtrar por raza</mat-label>
+          <mat-select [(ngModel)]="selectedRaza" (ngModelChange)="onRazaChange()">
+            <mat-option value="">Todas</mat-option>
+            <mat-option *ngFor="let raza of razas" [value]="raza">{{ raza }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id_mascota}} </td>
+        </ng-container>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre_mascota}} </td>
+        </ng-container>
+
+        <!-- Raza Column -->
+        <ng-container matColumnDef="raza">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Raza </th>
+          <td mat-cell *matCellDef="let element"> {{element.raza}} </td>
+        </ng-container>
+
+        <!-- Edad Column -->
+        <ng-container matColumnDef="edad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
+          <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+        </ng-container>
+
+        <!-- Peso Column -->
+        <ng-container matColumnDef="peso">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Peso </th>
+          <td mat-cell *matCellDef="let element"> {{element.peso}} </td>
+        </ng-container>
+
+        <!-- Cliente Column -->
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre_cliente}} </td>
+        </ng-container>
+
+        <!-- Medicamento Column -->
+        <ng-container matColumnDef="medicamento">
+          <th mat-header-cell *matHeaderCellDef> Alimento </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre_medicamento}} </td>
+        </ng-container>
+
+        <!-- Nueva columna Acciones -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="openEditMascotaModal(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="eliminarMascota(element.id_mascota)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,21 @@
+.scrollable-content {
+    max-height: 400px; /* Altura máxima de la modal */
+    overflow-y: auto;  /* Habilita el scroll vertical */
+    padding-right: 16px; /* Añade un pequeño padding para evitar que el scroll tape el contenido */
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espacio entre las filas */
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px; /* Espacio entre los campos dentro de la misma fila */
+}
+
+.form-field {
+    flex: 1;
+}

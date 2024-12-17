@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{ data.mascota ? 'Editar Mascota' : 'Agregar Porcino' }}</h2>
+<mat-dialog-content class="scrollable-content">
+    <form [formGroup]="mascotaForm">
+        <div class="form-grid">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Nombre del Porcino</mat-label>
+                    <input matInput formControlName="nombre" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Raza</mat-label>
+                    <input matInput formControlName="raza" required />
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Edad</mat-label>
+                    <input matInput formControlName="edad" type="number" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Peso</mat-label>
+                    <input matInput formControlName="peso" type="number" required />
+                </mat-form-field>
+            </div>
+
+            <!-- Select para Cliente -->
+            <div class="form-row">
+                <!-- Select para Cliente -->
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Cliente</mat-label>
+                    <mat-select formControlName="cliente">
+                        <mat-option *ngFor="let cliente of clientes" [value]="cliente.id_cliente">
+                            {{ cliente.nombre_completo }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- Select para Medicamento -->
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Alimento</mat-label>
+                    <mat-select formControlName="medicamento">
+                        <mat-option *ngFor="let medicamento of medicamentos" [value]="medicamento.id_medicamento">
+                            {{ medicamento.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-button color="primary" (click)="onSave()" [disabled]="mascotaForm.invalid">
+        Guardar
+    </button>
+</mat-dialog-actions>

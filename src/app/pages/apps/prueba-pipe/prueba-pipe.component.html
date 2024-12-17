@@ -1,0 +1,97 @@
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+        <div class="col-md-4 col-xl-3 chat">
+            <div class="card mb-sm-3 mb-md-0 contacts_card">
+                <div class="card-header">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search..." name="" class="form-control search">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text search_btn"><fa-icon
+                                    [icon]="['fas', 'search']"></fa-icon></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body contacts_body">
+                    <ul class="contacts">
+                        <!-- Contact List -->
+                    </ul>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+        <div class="col-md-8 col-xl-6 chat">
+            <div class="card">
+                <div class="card-header msg_head">
+                    <div class="d-flex bd-highlight">
+                        <div class="img_cont">
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                class="rounded-circle user_img">
+                            <span class="online_icon"></span>
+                        </div>
+                        <div class="user_info">
+                            <span>Chat with Khalid</span>
+                            <p>0 Messages</p>
+                        </div>
+                        <div class="video_cam">
+                            <span><fa-icon [icon]="['fas', 'video']"></fa-icon></span>
+                            <span><fa-icon [icon]="['fas', 'phone']"></fa-icon></span>
+                        </div>
+                    </div>
+                    <span id="action_menu_btn"><fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon></span>
+                    <div class="action_menu">
+                        <ul>
+                            <li><fa-icon [icon]="['fas', 'user-circle']"></fa-icon> View profile</li>
+                            <li><fa-icon [icon]="['fas', 'users']"></fa-icon> Add to close friends</li>
+                            <li><fa-icon [icon]="['fas', 'plus']"></fa-icon> Add to group</li>
+                            <li><fa-icon [icon]="['fas', 'ban']"></fa-icon> Block</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body msg_card_body" id="chat">
+                    <div *ngFor="let message of messages"
+                        [ngClass]="{'justify-content-end': message.from === 'me', 'justify-content-start': message.from === 'other'}"
+                        class="d-flex mb-4">
+                        <div *ngIf="message.from === 'other'" class="img_cont_msg">
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                class="rounded-circle user_img_msg">
+                        </div>
+                        <div
+                            [ngClass]="{'msg_cotainer_send': message.from === 'me', 'msg_cotainer': message.from === 'other'}">
+                            {{ message.text }}
+                        </div>
+                        <div *ngIf="message.from === 'me'" class="img_cont_msg">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Tq1jDF1cvI047mHZNR_Cp8kHY4Tc3wm1mw&s" class="rounded-circle user_img_msg">
+                        </div>
+                    </div>
+                    <div *ngIf="isTyping" class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg">
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                class="rounded-circle user_img_msg">
+                        </div>
+                        <div class="msg_cotainer">
+                            <div class="typing">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text attach_btn"><fa-icon
+                                    [icon]="['fas', 'paperclip']"></fa-icon></span>
+                        </div>
+                        <textarea [(ngModel)]="newMessage" id="messageInput" class="form-control type_msg"
+                            placeholder="Type your message..."></textarea>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary send_btn" (click)="sendMessage()"><fa-icon
+                                    [icon]="['fas', 'paper-plane']"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

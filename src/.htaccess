@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /plantilla/MomentoValorativo2/Pipe/  
+  #Cambiar app por el nombre del subdominio o dominio cuando lo compren 
+
+  # Si es un archivo o directorio existente, servirlo directamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Redirige todas las demás solicitudes a index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Habilitar la compresión de archivos para mejorar el rendimiento
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Configurar MIME types para fuentes
+<IfModule mod_mime.c>
+  AddType application/font-woff2 .woff2
+  AddType application/font-woff .woff
+</IfModule>
+
+# Permitir acceso a archivos de fuentes desde cualquier origen
+<FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+  Header set Access-Control-Allow-Origin "*"
+</FilesMatch>

@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ data.medicamento ? 'Editar Medicamento' : 'Agregar Alimento' }}</h2>
+<mat-dialog-content class="scrollable-content">
+    <form [formGroup]="medicamentoForm">
+        <div class="form-grid">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput formControlName="descripcion" required />
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Dosis</mat-label>
+                    <input matInput formControlName="dosis" required />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-button color="primary" (click)="onSave()" [disabled]="medicamentoForm.invalid">
+        Guardar
+    </button>
+</mat-dialog-actions>
